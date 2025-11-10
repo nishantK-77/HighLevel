@@ -1,0 +1,35 @@
+custom: ${file(./parameters.yml)}
+
+useDotenv: true
+
+service: ${self:custom.service}
+
+plugins: ${self:custom.plugins}
+
+package:
+  excludeDevDependencies: true
+
+frameworkVersion: ${self:custom.frameworkVersion}
+
+provider:
+  name: aws
+  region: ${self:custom.region}
+  stage: ${self:custom.stage}
+  stackName: ${self:service}-${self:provider.stage}
+  apiName: ${self:service}-${self:provider.stage}
+  memorySize: ${self:custom.memorySize}
+  runtime: ${self:custom.runtime}
+
+  iam:
+    role: ${self:custom.role, null}
+
+  vpc: ${self:custom.vpc, null}
+
+  tags: ${self:custom.tags}
+
+functions:
+  index:
+    handler: lambda.handler
+    name: ${self:service}-${self:provider.stage}
+    url: ${self:custom.indexFunction.url, null}
+    events: ${self:custom.indexFunction.events, null}

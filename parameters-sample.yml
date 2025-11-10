@@ -1,0 +1,60 @@
+# Default Parameters
+frameworkVersion: '3.38.0'
+region: ''
+service: ''
+stage: ''
+memorySize: 512
+runtime: nodejs18.x
+role:
+  managedPolicies:
+
+# Optional VPC Parameters
+vpc:
+  securityGroupIds:
+  subnetIds:
+
+# Tags Parameters
+tags:
+  Name: ''
+  Environment: ''
+  Creator: ''
+  Owner: ''
+  BillingCode: ''
+
+# Index Function Definition
+indexFunction:
+  # Function URL Config
+  url: false
+
+  # API Gateway Config
+  events:
+    - httpApi: '*'
+
+# Optional Custom Domain Parameters API Gateway
+customDomain:
+  domainName: ''
+  basePath: ''
+  certificateName: ''
+  createRoute53Record: true
+  createRoute53IPv6Record: true
+  autoDomain: true
+  endpointType: regional
+  apiType: http
+
+# Optional Custom Domain Parameters for Function URL
+urlDomain:
+  apiDomain: ''
+  hostedZoneName: ''
+  certificateArn: ''
+
+# Optional Custom Deployment Bucket Parameters
+deploymentBucket:
+  name: ''
+  versioning: false
+
+# Plugins
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-domain-manager
+  - serverless-aws-function-url-custom-domain
+  - serverless-deployment-bucket
